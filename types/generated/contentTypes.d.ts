@@ -776,6 +776,26 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::like.like'
     >;
+    collections: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::collection.collection'
+    >;
+    comments: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::comment.comment'
+    >;
+    items: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::item.item'
+    >;
+    tags: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::tag.tag'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -869,6 +889,11 @@ export interface ApiCollectionCollection extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    user: Attribute.Relation<
+      'api::collection.collection',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -916,15 +941,15 @@ export interface ApiCommentComment extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    user: Attribute.Relation<
-      'api::comment.comment',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
     item: Attribute.Relation<
       'api::comment.comment',
       'oneToOne',
       'api::item.item'
+    >;
+    user: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1008,6 +1033,12 @@ export interface ApiItemItem extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    user: Attribute.Relation<
+      'api::item.item',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    tag: Attribute.Relation<'api::item.item', 'manyToOne', 'api::tag.tag'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1069,12 +1100,29 @@ export interface ApiTagTag extends Schema.CollectionType {
     singularName: 'tag';
     pluralName: 'tags';
     displayName: 'Tag';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    tags: Attribute.Text;
+    tags: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    user: Attribute.Relation<
+      'api::tag.tag',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    items: Attribute.Relation<'api::tag.tag', 'oneToMany', 'api::item.item'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1082,6 +1130,12 @@ export interface ApiTagTag extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::tag.tag',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    locale: Attribute.String;
   };
 }
 

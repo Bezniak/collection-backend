@@ -24,15 +24,16 @@
       },
       "type": "text"
     },
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
-    },
     "item": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::item.item"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "comments"
     }
   }
 }
