@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "items",
+  "info": {
+    "singularName": "item",
+    "pluralName": "items",
+    "displayName": "Item",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "tags": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "additionalFields": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json"
+    },
+    "user_name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "collection": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collection.collection",
+      "inversedBy": "items"
+    },
+    "user_id": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "image_url": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
