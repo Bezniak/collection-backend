@@ -29,12 +29,6 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "tags"
-    },
-    "items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::item.item",
-      "mappedBy": "tag"
     }
   }
 }

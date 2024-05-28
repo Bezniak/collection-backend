@@ -10,15 +10,49 @@ module.exports = {
     console.log('Received query:', query);
 
     try {
-      // Пример поиска в модели `articles`
-      const results = await strapi.entityService.findMany('api::article.article', {
+      const commentsResults = await strapi.entityService.findMany('api::comment.comment', {
         filters: {
           $or: [
-            { title: { $containsi: query } },
-            { description: { $containsi: query } },
+            { text: { $containsi: query } },
           ],
         },
       });
+
+      const collectionsResults = await strapi.entityService.findMany('api::collection.collection', {
+        filters: {
+          $or: [
+            { name: { $containsi: query } },
+            { description: { $containsi: query } },
+            { category: { $containsi: query } },
+            { fields: { $containsi: query } },
+          ],
+        },
+      });
+
+      const itemsResults = await strapi.entityService.findMany('api::item.item', {
+        filters: {
+          $or: [
+            { name: { $containsi: query } },
+            { tags: { $containsi: query } },
+            { additionalFields: { $containsi: query } },
+          ],
+        },
+      });
+
+      const tagsResults = await strapi.entityService.findMany('api::tag.tag', {
+        filters: {
+          $or: [
+            { tags: { $containsi: query } },
+          ],
+        },
+      });
+
+      const results = {
+        comments: commentsResults,
+        collections: collectionsResults,
+        items: itemsResults,
+        tags: tagsResults,
+      };
 
       console.log('Search results:', results);
       ctx.send(results);

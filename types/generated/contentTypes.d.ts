@@ -1038,7 +1038,6 @@ export interface ApiItemItem extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    tag: Attribute.Relation<'api::item.item', 'manyToOne', 'api::tag.tag'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1122,7 +1121,6 @@ export interface ApiTagTag extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    items: Attribute.Relation<'api::tag.tag', 'oneToMany', 'api::item.item'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
